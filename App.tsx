@@ -38,6 +38,10 @@ export default function App() {
       if (cep !== "") {
         const { data } = await api.get(`${cep}/json`);
 
+        if (data.erro == true) {
+          setShowResults(false);
+          setShowError(true);
+        }
         console.log(data);
 
         setReturnCepValue(data);
@@ -45,6 +49,7 @@ export default function App() {
         Alert.alert("Digite um CEP valido! 😥");
       }
     } catch (error) {
+      console.log("erro", error);
       setShowResults(false);
       setShowError(true);
     }
